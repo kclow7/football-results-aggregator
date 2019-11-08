@@ -7,4 +7,6 @@ class Team < ApplicationRecord
   # league_id             int
 
   belongs_to :league
+
+  validates :name, presence: true
 end

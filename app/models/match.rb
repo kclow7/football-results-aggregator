@@ -14,4 +14,8 @@ class Match < ApplicationRecord
   belongs_to :league
   belongs_to :team_1, class_name: "Team", foreign_key: "team_1_id"
   belongs_to :team_2, class_name: "Team", foreign_key: "team_2_id"
+
+  validates :score_1, presence: true
+  validates :score_2, presence: true
+  validates :date, presence: true
 end
