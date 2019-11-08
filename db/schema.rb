@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_07_114639) do
+ActiveRecord::Schema.define(version: 2019_11_08_103722) do
 
   create_table "leagues", force: :cascade do |t|
     t.string "name"
@@ -19,21 +19,22 @@ ActiveRecord::Schema.define(version: 2019_11_07_114639) do
   end
 
   create_table "matches", force: :cascade do |t|
-    t.integer "team_1"
-    t.integer "team_2"
     t.integer "score_1"
     t.integer "score_2"
     t.string "youtube_link"
     t.datetime "match_date"
-    t.integer "league"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "league_id"
+    t.index ["league_id"], name: "index_matches_on_league_id"
   end
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "league_id"
+    t.index ["league_id"], name: "index_teams_on_league_id"
   end
 
 end

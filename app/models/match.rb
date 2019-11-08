@@ -8,6 +8,8 @@ class Match < ApplicationRecord
   # score_1               int
   # score_2               int
   # date                  DateTime
-  # youtube_video_link    string
+  # youtube_link          string
   # league_id             int
+
+  belongs_to :league
 end

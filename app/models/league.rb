@@ -4,4 +4,7 @@ class League < ApplicationRecord
   # name                  string
   # created_at            DateTime
   # updated_at            DateTime
+
+  has_many :teams
+  has_many :matches
 end

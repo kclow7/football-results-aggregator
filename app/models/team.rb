@@ -5,4 +5,6 @@ class Team < ApplicationRecord
   # created_at            DateTime
   # updated_at            DateTime
   # league_id             int
+
+  belongs_to :league
 end
