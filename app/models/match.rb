@@ -7,7 +7,7 @@ class Match < ApplicationRecord
   # team_2_id             int
   # score_1               int
   # score_2               int
-  # date                  DateTime
+  # match_date            DateTime
   # youtube_link          string
   # league_id             int
 
@@ -17,5 +17,5 @@ class Match < ApplicationRecord
 
   validates :score_1, presence: true
   validates :score_2, presence: true
-  validates :date, presence: true
+  validates :match_date, presence: true
 end
