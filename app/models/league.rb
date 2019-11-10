@@ -7,6 +7,7 @@ class League < ApplicationRecord
 
   has_many :teams
   has_many :matches
+  has_one_attached :crest
 
   validates :name, presence: true
 end

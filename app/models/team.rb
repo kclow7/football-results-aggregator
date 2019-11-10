@@ -7,6 +7,7 @@ class Team < ApplicationRecord
   # league_id             int
 
   belongs_to :league
+  has_one_attached :crest
 
   validates :name, presence: true
 end
