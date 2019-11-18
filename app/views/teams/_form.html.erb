@@ -17,6 +17,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :league_id %>
+    <%= form.collection_select(:league_id, League.all, :id, :name) %>
+  </div>
+
+  <div class="field">
     <%= form.label :crest %>
     <%= form.file_field :crest %>
   </div>
