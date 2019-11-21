@@ -6,10 +6,10 @@ require 'mini_magick'
 
 module WebScraper
   module TeamsScraper
-    class PremierLeagueTeamsScraper < ApplicationService
+    class BundesligaTeamsScraper < ApplicationService
       OpenURI::Buffer.send :remove_const, 'StringMax' if OpenURI::Buffer.const_defined?('StringMax')
       OpenURI::Buffer.const_set 'StringMax', 0
-      URL = "https://en.as.com/resultados/futbol/inglaterra/equipos/"
+      URL = "https://en.as.com/resultados/futbol/alemania/equipos/"
       attr_reader :team_infos
 
       def initialize
@@ -42,10 +42,10 @@ module WebScraper
       end
 
       def save_team_info
-        premier_league_id = League.find_by(name: "Premier League").id
+        bundesliga_id = League.find_by(name: "Bundesliga").id
         @team_infos.each do |team_info|
           image_file = open(team_info[:url])
-          team = ::Team.new(name: team_info[:name], league_id: premier_league_id)
+          team = ::Team.new(name: team_info[:name], league_id: bundesliga_id)
           team.crest.attach(io: image_file, filename: "#{team_info[:name]}.png")
           team.save
         end
