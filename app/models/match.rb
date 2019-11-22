@@ -18,4 +18,5 @@ class Match < ApplicationRecord
   validates :score_1, presence: true
   validates :score_2, presence: true
   validates :match_date, presence: true
+  validates :matchday, presence: true
 end
