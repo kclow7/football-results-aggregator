@@ -10,6 +10,7 @@ class Match < ApplicationRecord
   # match_date            DateTime
   # youtube_link          string
   # league_id             int
+  # matchday              int
 
   belongs_to :league
   belongs_to :team_1, class_name: "Team", foreign_key: "team_1_id"
