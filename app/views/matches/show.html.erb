@@ -2,12 +2,12 @@
 
 <p>
   <strong>Team 1:</strong>
-  <%= @match.team_1 %>
+  <%= @match.team_1.name %>
 </p>
 
 <p>
   <strong>Team 2:</strong>
-  <%= @match.team_2 %>
+  <%= @match.team_2.name %>
 </p>
 
 <p>
@@ -27,12 +27,17 @@
 
 <p>
   <strong>Match date:</strong>
-  <%= @match.match_date %>
+  <%= @match.match_date.to_date.to_s %>
 </p>
 
 <p>
   <strong>League:</strong>
-  <%= @match.league %>
+  <%= @match.league.name %>
+</p>
+
+<p>
+  <strong>Matchday:</strong>
+  <%= @match.matchday %>
 </p>
 
 <%= link_to 'Edit', edit_match_path(@match) %> |
