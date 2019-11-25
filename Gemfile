@@ -42,6 +42,12 @@ gem 'nokogiri'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'google-api-client', '~> 0.34'
+
+gem "figaro"
+
+gem "trollop"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
