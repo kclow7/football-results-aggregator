@@ -1,14 +1,11 @@
 require 'google/apis/youtube_v3'
 require 'json'
-require 'pry'
 require 'httparty'
 require 'open-uri'
 
 class YoutubeSearcher < ApplicationService
   DEVELOPER_KEY = ENV['YOUTUBE_DATA_API_KEY']
-  YOUTUBE_API_SERVICE_NAME = 'youtube'
-  YOUTUBE_API_VERSION = 'v3'
-
+  
   def initialize(matchday:, league_name:)
     @matchday = matchday
     @league_name = league_name
@@ -19,7 +16,6 @@ class YoutubeSearcher < ApplicationService
     # matches = get_matches
     matches = Match.where(id: 49)
     matches.each do |match|
-      binding.pry
       next if match.video_thumbnail.attached?
       match_video_details = get_match_video_details(match)
       update_match(match, match_video_details)
