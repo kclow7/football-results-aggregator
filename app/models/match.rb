@@ -11,6 +11,7 @@ class Match < ApplicationRecord
   # youtube_link          string
   # league_id             int
   # matchday              int
+  # video_title           string
 
   belongs_to :league
   belongs_to :team_1, class_name: "Team", foreign_key: "team_1_id"
@@ -20,4 +21,6 @@ class Match < ApplicationRecord
   validates :score_2, presence: true
   validates :match_date, presence: true
   validates :matchday, presence: true
+
+  has_one_attached :video_thumbnail
 end

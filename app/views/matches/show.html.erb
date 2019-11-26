@@ -18,12 +18,7 @@
 <p>
   <strong>Score 2:</strong>
   <%= @match.score_2 %>
-</p>
-
-<p>
-  <strong>Youtube link:</strong>
-  <%= @match.youtube_link %>
-</p>
+</p
 
 <p>
   <strong>Match date:</strong>
@@ -38,6 +33,23 @@
 <p>
   <strong>Matchday:</strong>
   <%= @match.matchday %>
+</p>
+
+<p>
+  <strong>Video thumbnail:</strong>
+  <div style="width:400px; height:auto">
+    <%= image_tag(@match.video_thumbnail, style:'width:100%') if @match.video_thumbnail.attached? %>
+  </div>
+</p>
+
+<p>
+  <strong>Youtube link:</strong>
+  <%= @match.youtube_link %>
+</p>
+
+<p>
+  <strong>Video title:</strong>
+  <%= @match.video_title %>
 </p>
 
 <%= link_to 'Edit', edit_match_path(@match) %> |
