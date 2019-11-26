@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_043747) do
+ActiveRecord::Schema.define(version: 2019_11_25_152549) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_043747) do
     t.integer "team_1_id"
     t.integer "team_2_id"
     t.integer "matchday"
+    t.string "video_title"
     t.index ["league_id"], name: "index_matches_on_league_id"
   end
 
