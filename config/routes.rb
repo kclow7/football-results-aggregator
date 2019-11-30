@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   root "pages#home"
 
+  get "deprecated_home", to: "pages#deprecated_home"
+
   get "premier_league", to: "pages#premier_league", as: :premier_league
   get "premier_league/:matchday", to: "pages#premier_league"
 
