@@ -1,3 +1,60 @@
 <body>
-  
+  <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <div class="navbar-item">
+          <a class="button is-light is-medium" href=<%= premier_league_path %>>
+          <span><strong>Premier League</strong></span>
+          <a>
+        </div>
+
+        <div class="navbar-item">
+          <a class="button is-light is-medium" href=<%= la_liga_path %>>
+          <span><strong>La Liga</strong></span>
+          <a>
+        </div>
+
+        <div class="navbar-item">
+          <a class="button is-light is-medium" href=<%= ligue_1_path %>>
+          <span><strong>Ligue 1</strong></span>
+          <a>
+        </div>
+
+        <div class="navbar-item">
+          <a class="button is-light is-medium" href=<%= bundesliga_path %>>
+          <span><strong>Bundesliga</strong></span>
+          <a>
+        </div>
+
+        <div class="navbar-item">
+          <a class="button is-light is-medium" href=<%= serie_a_path %>>
+          <span><strong>Serie A</strong></span>
+          <a>
+        </div>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <strong>Matchday</strong>
+          </a>
+
+          <div class="navbar-dropdown">
+            <% @all_matchdays.each do |matchday| %>
+              <a class="navbar-item" href=<%= switch_matchday(@league.name, matchday) %>>
+                <%= matchday %>
+              </a>
+            <% end %>
+          </div>
+
+      </div>
+    </div>
+  </nav>
 </body>

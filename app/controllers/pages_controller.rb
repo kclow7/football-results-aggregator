@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_action :set_params, only: [:premier_league, :la_liga, :ligue_1, :serie_a, :bundesliga]
+  helper_method :switch_matchday
 
   def home
   end
@@ -19,6 +20,28 @@ class PagesController < ApplicationController
   def serie_a
   end
 
+  def switch_matchday(league, matchday)
+    url_helpers = Rails.application.routes.url_helpers
+    case league
+    when "Premier League"
+      url_helpers.premier_league_with_matchday_path(matchday)
+    when "La Liga"
+      url_helpers.la_liga_with_matchday_path(matchday)
+    when "Ligue 1"
+      url_helpers.ligue_1_with_matchday_path(matchday)
+    when "Bundesliga"
+      url_helpers.bundesliga_with_matchday_path(matchday)
+    when "Serie A"
+      url_helpers.serie_a_with_matchday_path(matchday)
+    else
+      render :not_found
+    end
+  end
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
   private
 
   def set_params
@@ -32,12 +55,20 @@ class PagesController < ApplicationController
       @league = League.find_by(name: "Serie A")
     when "bundesliga"
       @league = League.find_by(name: "Bundesliga")
-    else
+    when "ligue_1"
       @league = League.find_by(name: "Ligue 1")
+    else
+      render :not_found
     end
 
-    @matchday = @league.matches.map {|match| match.matchday}.max
     @all_matchdays = @league.matches.map {|match| match.matchday}.uniq
+
+    if params[:matchday].nil?
+      @matchday = @all_matchdays.max
+    else
+      @matchday = params[:matchday]
+    end
+
     @matches = @league.matches.where(matchday: @matchday)
   end
 
