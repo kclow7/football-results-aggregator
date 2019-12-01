@@ -1,9 +1,6 @@
 class PagesController < ApplicationController
   before_action :set_matchday, only: [:premier_league, :la_liga, :ligue_1, :serie_a, :bundesliga]
 
-  def deprecated_home
-  end
-
   def home
   end
 

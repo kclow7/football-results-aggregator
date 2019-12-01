@@ -46,12 +46,6 @@ gem 'google-api-client', '~> 0.34'
 
 gem "figaro"
 
-gem "trollop"
-
-gem "bulma-rails", "~> 0.8.0"
-
-gem 'webpacker', '~> 4.x', github: 'rails/webpacker'
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
