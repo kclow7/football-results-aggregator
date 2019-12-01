@@ -31,7 +31,11 @@
                   <div class="level-item">
                     <a href=<%= match.youtube_link %> target="_blank">
                       <figure class="image">
-                        <%= image_tag(match.video_thumbnail, style:'width:100%') if match.video_thumbnail.attached? %>
+                        <% if match.video_thumbnail.attached? %>
+                          <%= image_tag(match.video_thumbnail, style:'width:100%') %>
+                        <% else %>
+                          <%= image_tag("youtube_video_unavailable", style:'width:70%') %>
+                        <% end %>
                       </figure>
                     </a>
                   </div>
