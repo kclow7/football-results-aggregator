@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :set_matchday, :set_all_matchdays_for_league, only: [:premier_league, :la_liga, :ligue_1, :serie_a, :bundesliga]
+  before_action :set_params, only: [:premier_league, :la_liga, :ligue_1, :serie_a, :bundesliga]
 
   def home
   end
@@ -21,40 +21,24 @@ class PagesController < ApplicationController
 
   private
 
-  def set_matchday
-    if params[:matchday].nil?
-      action_called = params[:action]
-      case action_called
-      when "premier_league"
-        @matchday = League.find_by(name: "Premier League").matches.map {|match| match.matchday}.max
-      when "la_liga"
-        @matchday = League.find_by(name: "La Liga").matches.map {|match| match.matchday}.max
-      when "serie_a"
-        @matchday = League.find_by(name: "Serie A").matches.map {|match| match.matchday}.max
-      when "bundesliga"
-        @matchday = League.find_by(name: "Bundesliga").matches.map {|match| match.matchday}.max
-      else
-        @matchday = League.find_by(name: "Ligue 1").matches.map {|match| match.matchday}.max
-      end
-    else
-      @matchday = params[:matchday]
-    end
-  end
-
-  def set_all_matchdays_for_league
+  def set_params
     action_called = params[:action]
     case action_called
     when "premier_league"
-      @all_matchdays = League.find_by(name: "Premier League").matches.map {|match| match.matchday}.uniq
+      @league = League.find_by(name: "Premier League")
     when "la_liga"
-      @all_matchdays = League.find_by(name: "La Liga").matches.map {|match| match.matchday}.uniq
+      @league = League.find_by(name: "La Liga")
     when "serie_a"
-      @all_matchdays = League.find_by(name: "Serie A").matches.map {|match| match.matchday}.uniq
+      @league = League.find_by(name: "Serie A")
     when "bundesliga"
-      @all_matchdays = League.find_by(name: "Bundesliga").matches.map {|match| match.matchday}.uniq
+      @league = League.find_by(name: "Bundesliga")
     else
-      @all_matchdays = League.find_by(name: "Ligue 1").matches.map {|match| match.matchday}.uniq
+      @league = League.find_by(name: "Ligue 1")
     end
+
+    @matchday = @league.matches.map {|match| match.matchday}.max
+    @all_matchdays = @league.matches.map {|match| match.matchday}.uniq
+    @matches = @league.matches.where(matchday: @matchday)
   end
 
 end
