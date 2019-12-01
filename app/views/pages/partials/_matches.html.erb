@@ -1,0 +1,48 @@
+<body>
+  <section class="section">
+    <div class="container">
+      <% @matches.each do |match| %>
+        <div class="field">
+          <div class="control">
+            <div class="box">
+              <div class="level">
+                <div class="level-left">
+                  <div class="level-item">
+                    <figure class="image is-64x64">
+                      <%= image_tag(match.team_1.crest) %>
+                    </figure>
+                  </div>
+                  <div class="level-item">
+                    <p class="is-size-4 is-family-sans-serif"><strong><%= match.team_1.name %></strong></p>
+                  </div>
+                  <div class="level-item">
+                    <p class="is-size-4 is-family-sans-serif"><strong><%= match.score_1 %> - <%= match.score_2 %></strong></p>
+                  </div>
+                  <div class="level-item">
+                    <p class="is-size-4 is-family-sans-serif"><strong><%= match.team_2.name %></strong></p>
+                  </div>
+                  <div class="level-item">
+                    <figure class="image is-64x64">
+                      <%= image_tag(match.team_2.crest) %>
+                    </figure>
+                  </div>
+                </div>
+                <div class="level-right">
+                  <div class="level-item">
+                    <a href=<%= match.youtube_link %> target="_blank">
+                      <figure class="image">
+                        <%= image_tag(match.video_thumbnail, style:'width:100%') if match.video_thumbnail.attached? %>
+                      </figure>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</body>
+
+<!-- image_tag match.team_1.crest -->
