@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   resources :leagues
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root "pages#home"
+  root "pages#home", as: :home
 
   get "premier_league", to: "pages#premier_league", as: :premier_league
-  get "premier_league/:matchday", to: "pages#premier_league"
+  get "premier_league/:matchday", to: "pages#premier_league", as: :premier_league_with_matchday
 
   get "la_liga", to: "pages#la_liga", as: :la_liga
   get "la_liga/:matchday", to: "pages#la_liga"

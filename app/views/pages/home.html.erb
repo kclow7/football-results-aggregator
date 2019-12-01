@@ -10,22 +10,16 @@
 
   <body>
 
-    <section class="hero is-primary">
-      <div class="hero-head">
-        <nav class="navbar">
-          <div class="container">
-            <div class="navbar-brand">
-              <%= link_to image_tag("https://i.ibb.co/LYF9HTK/default-monochrome-white.png"), {action: "home", controller: "pages"}, class: "navbar-item" %>
-              <span class="navbar-burger burger" data-target="navbarMenuHeroA">
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-            </div>
-          </div>
-        </nav>
+    <nav class="navbar is-success" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <%= link_to image_tag("https://i.ibb.co/LYF9HTK/default-monochrome-white.png"), {action: "home", controller: "pages"}, class: "navbar-item" %>
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-    </section>
+    </nav>
 
     <section class="section">
       <div class="container has-text-centered">
