@@ -8,6 +8,12 @@
         <% match_1 = match_pair[0] %>
         <% match_2 = match_pair[1] %>
 
+        <!-- change the display names of M. United to Man. United. Similar goes to M. City. -->
+        <% match_1.team_1.name = "Man. United" if match_1.team_1.name == "M. United"%>
+        <% match_1.team_2.name = "Man. United" if match_1.team_2.name == "M. United"%>
+        <% match_1.team_1.name = "Man. City" if match_1.team_1.name == "M. City"%>
+        <% match_1.team_2.name = "Man. City" if match_1.team_2.name == "M. City"%>
+
           <div class="tile is-ancestor">
             <div class="tile is-parent">
               <div class="tile is-child box">
@@ -147,6 +153,13 @@
 
             <div class="tile is-parent">
               <% if match_2 %>
+
+              <!-- change the display names of M. United to Man. United. Similar goes to M. City. -->
+              <% match_2.team_1.name = "Man. United" if match_2.team_1.name == "M. United"%>
+              <% match_2.team_2.name = "Man. United" if match_2.team_2.name == "M. United"%>
+              <% match_2.team_1.name = "Man. City" if match_2.team_1.name == "M. City"%>
+              <% match_2.team_2.name = "Man. City" if match_2.team_2.name == "M. City"%>
+
                 <div class="tile is-child box">
                   <!-- Right box -->
 
