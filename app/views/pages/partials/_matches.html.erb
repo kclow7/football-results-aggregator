@@ -29,15 +29,15 @@
                 </div>
                 <div class="level-right">
                   <div class="level-item">
-                    <a href=<%= match.youtube_link %> target="_blank">
-                      <figure class="image">
-                        <% if match.video_thumbnail.attached? %>
+                    <figure class="image">
+                      <% if match.video_thumbnail.attached? %>
+                        <a href=<%= match.youtube_link %> target="_blank">
                           <%= image_tag(match.video_thumbnail, style:'width:100%') %>
-                        <% else %>
-                          <%= image_tag("youtube_video_unavailable", style:'width:70%') %>
-                        <% end %>
-                      </figure>
-                    </a>
+                        </a>
+                      <% else %>
+                        <%= image_tag("youtube_video_unavailable_2", style:'width:100%') %>
+                      <% end %>
+                    </figure>
                   </div>
                 </div>
               </div>
