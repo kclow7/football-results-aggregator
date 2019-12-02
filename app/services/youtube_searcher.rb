@@ -5,7 +5,7 @@ require 'open-uri'
 
 class YoutubeSearcher < ApplicationService
   DEVELOPER_KEY = ENV['YOUTUBE_DATA_API_KEY']
-  
+
   def initialize(matchday:, league_name:)
     @matchday = matchday
     @league_name = league_name
@@ -13,8 +13,7 @@ class YoutubeSearcher < ApplicationService
 
   def call
     set_service
-    # matches = get_matches
-    matches = Match.where(id: 49)
+    matches = get_matches
     matches.each do |match|
       next if match.video_thumbnail.attached?
       match_video_details = get_match_video_details(match)
