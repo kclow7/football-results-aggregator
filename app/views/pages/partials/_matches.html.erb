@@ -1,52 +1,291 @@
 <body>
   <section class="section">
     <div class="container">
-      <% @matches.each do |match| %>
-        <div class="field">
-          <div class="control">
-            <div class="box">
-              <div class="level">
-                <div class="level-left">
+      <% sorted_matches = @matches.sort_by { |match| match.match_date } %>
+      <% matches_pairs = sorted_matches.each_slice(2).to_a %>
+
+        <% matches_pairs.each do |match_pair| %>
+        <% match_1 = match_pair[0] %>
+        <% match_2 = match_pair[1] %>
+
+          <div class="tile is-ancestor">
+            <div class="tile is-parent">
+              <div class="tile is-child box">
+                <!-- Left box -->
+                <div class="level">
                   <div class="level-item">
-                    <figure class="image is-64x64">
-                      <%= image_tag(match.team_1.crest) %>
-                    </figure>
-                  </div>
-                  <div class="level-item">
-                    <p class="is-size-4 is-family-sans-serif"><strong><%= match.team_1.name %></strong></p>
-                  </div>
-                  <div class="level-item">
-                    <p class="is-size-4 is-family-sans-serif"><strong><%= match.score_1 %> - <%= match.score_2 %></strong></p>
-                  </div>
-                  <div class="level-item">
-                    <p class="is-size-4 is-family-sans-serif"><strong><%= match.team_2.name %></strong></p>
-                  </div>
-                  <div class="level-item">
-                    <figure class="image is-64x64">
-                      <%= image_tag(match.team_2.crest) %>
-                    </figure>
-                  </div>
-                </div>
-                <div class="level-right">
-                  <div class="level-item">
-                    <figure class="image">
-                      <% if match.video_thumbnail.attached? %>
-                        <a href=<%= match.youtube_link %> target="_blank">
-                          <%= image_tag(match.video_thumbnail, style:'width:100%') %>
-                        </a>
-                      <% else %>
-                        <%= image_tag("youtube_video_unavailable_2", style:'width:100%') %>
-                      <% end %>
-                    </figure>
+                    <div class="tile is-ancestor">
+
+                      <!-- column containing the crest -->
+                      <div class="tile is-2">
+                        <div class="tile is-ancestor">
+                          <div class="tile is-vertical is-parent">
+                            <div class="tile is-child">
+                              <!-- Top tile -->
+                              <figure class="image is-64x64">
+                                <%= image_tag(match_1.team_1.crest) %>
+                              </figure>
+                            </div>
+                            <div class="tile">
+                              <!-- Bottom tile -->
+                              <figure class="image is-64x64">
+                                <%= image_tag(match_1.team_2.crest) %>
+                              </figure>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- column containing team name -->
+                      <div class="tile">
+                        <div class="tile is-ancestor">
+                          <div class="tile is-vertical is-parent">
+                            <div class="tile is-child">
+                              <!-- Top tile -->
+                              <div class="level">
+                              </div>
+                              <div class="level">
+                                <div class="level-left">
+                                  <div class="level-item">
+                                    <p class="is-size-5 is-family-sans-serif"><strong><%= match_1.team_1.name %></strong></p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="level">
+                              </div>
+                            </div>
+                            <div class="tile is-child">
+                              <!-- Bottom tile -->
+                              <div class="level">
+                              </div>
+                              <div class="level">
+                                <div class="level-left">
+                                  <div class="level-item">
+                                    <p class="is-size-5 is-family-sans-serif"><strong><%= match_1.team_2.name %></strong></p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="level">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- column containing score -->
+                      <div class="tile">
+                        <div class="tile is-ancestor">
+                          <div class="tile is-vertical is-parent">
+                            <div class="tile is-child">
+                              <!-- Top tile -->
+                              <div class="level">
+                              </div>
+                              <div class="level">
+                                <div class="level-left">
+                                  <div class="level-item">
+                                    <p class="is-size-5 is-family-sans-serif"><strong><%= match_1.score_1 %></strong></p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="level">
+                              </div>
+                            </div>
+                            <div class="tile is-child">
+                              <!-- Bottom tile -->
+                              <div class="level">
+                              </div>
+                              <div class="level">
+                                <div class="level-left">
+                                  <div class="level-item">
+                                    <p class="is-size-5 is-family-sans-serif"><strong><%= match_1.score_2 %></strong></p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="level">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- column containing date and youtube thumbnail -->
+                      <div class="tile is-4">
+
+                        <div class="tile is-ancestor">
+                          <div class="tile is-vertical is-parent">
+                            <div class="tile is-child">
+                              <!-- Empty tile -->
+                            </div>
+                            <div class="tile is-child">
+                              <!-- Top tile -->
+                              <% formatted_match_date = match_1.match_date.to_date.strftime("%A, %m/%d/%y") %>
+                              <p class="is-size-6 is-family-sans-serif has-text-centered"><strong><%= formatted_match_date %></strong></p>
+                            </div>
+                            <div class="tile is-child">
+                              <!-- Bottom tile -->
+                              <figure class="image">
+                                <% if match_1.video_thumbnail.attached? %>
+                                  <a href=<%= match_1.youtube_link %> target="_blank">
+                                    <%= image_tag(match_1.video_thumbnail, style:'width:100%') %>
+                                  </a>
+                                <% else %>
+                                  <%= image_tag("youtube_video_unavailable_2", style:'width:100%') %>
+                                <% end %>
+                              </figure>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
+
+            <div class="tile is-parent">
+              <% if match_2 %>
+                <div class="tile is-child box">
+                  <!-- Right box -->
+
+                  <div class="level">
+                    <div class="level-item">
+                      <div class="tile is-ancestor">
+
+                        <!-- column containing the crest -->
+                        <div class="tile is-2">
+                          <div class="tile is-ancestor">
+                            <div class="tile is-vertical is-parent">
+                              <div class="tile is-child">
+                                <!-- Top tile -->
+                                <figure class="image is-64x64">
+                                  <%= image_tag(match_2.team_1.crest) %>
+                                </figure>
+                              </div>
+                              <div class="tile">
+                                <!-- Bottom tile -->
+                                <figure class="image is-64x64">
+                                  <%= image_tag(match_2.team_2.crest) %>
+                                </figure>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- column containing team name -->
+                        <div class="tile">
+                          <div class="tile is-ancestor">
+                            <div class="tile is-vertical is-parent">
+                              <div class="tile is-child">
+                                <!-- Top tile -->
+                                <div class="level">
+                                </div>
+                                <div class="level">
+                                  <div class="level-left">
+                                    <div class="level-item">
+                                      <p class="is-size-5 is-family-sans-serif"><strong><%= match_2.team_1.name %></strong></p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="level">
+                                </div>
+                              </div>
+                              <div class="tile is-child">
+                                <!-- Bottom tile -->
+                                <div class="level">
+                                </div>
+                                <div class="level">
+                                  <div class="level-left">
+                                    <div class="level-item">
+                                      <p class="is-size-5 is-family-sans-serif"><strong><%= match_2.team_2.name %></strong></p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="level">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- column containing score -->
+                        <div class="tile">
+                          <div class="tile is-ancestor">
+                            <div class="tile is-vertical is-parent">
+                              <div class="tile is-child">
+                                <!-- Top tile -->
+                                <div class="level">
+                                </div>
+                                <div class="level">
+                                  <div class="level-left">
+                                    <div class="level-item">
+                                      <p class="is-size-5 is-family-sans-serif"><strong><%= match_2.score_1 %></strong></p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="level">
+                                </div>
+                              </div>
+                              <div class="tile is-child">
+                                <!-- Bottom tile -->
+                                <div class="level">
+                                </div>
+                                <div class="level">
+                                  <div class="level-left">
+                                    <div class="level-item">
+                                      <p class="is-size-5 is-family-sans-serif"><strong><%= match_2.score_2 %></strong></p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="level">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- column containing date and youtube thumbnail -->
+                        <div class="tile is-4">
+
+                          <div class="tile is-ancestor">
+                            <div class="tile is-vertical is-parent">
+                              <div class="tile is-child">
+                                <!-- Empty tile -->
+                              </div>
+                              <div class="tile is-child">
+                                <!-- Top tile -->
+                                <% formatted_match_date = match_2.match_date.to_date.strftime("%A, %m/%d/%y") %>
+                                <p class="is-size-6 is-family-sans-serif has-text-centered"><strong><%= formatted_match_date %></strong></p>
+                              </div>
+                              <div class="tile is-child">
+                                <!-- Bottom tile -->
+                                <figure class="image">
+                                  <% if match_1.video_thumbnail.attached? %>
+                                    <a href=<%= match_2.youtube_link %> target="_blank">
+                                      <%= image_tag(match_2.video_thumbnail, style:'width:100%') %>
+                                    </a>
+                                  <% else %>
+                                    <%= image_tag("youtube_video_unavailable_2", style:'width:100%') %>
+                                  <% end %>
+                                </figure>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+
+              </div>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+
     </div>
   </section>
 </body>
-
-<!-- image_tag match.team_1.crest -->

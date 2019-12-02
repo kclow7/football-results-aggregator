@@ -10,7 +10,24 @@
 
   <body>
     <%= render "pages/partials/navbar" %>
-    <p>current matchday: <%=  @matchday %></p>
-    <p>current league: <%=  @league.name %></p>
+
+    <section class="section">
+      <div class="container has-text-centered">
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <figure class="image is-96x96">
+                <%= image_tag("serie_a_square.png") %>
+              </figure>
+            </div>
+            <div class="level-item">
+              <p class="title is-family-sans-serif">Italian Serie A | Matchday <%= @matchday %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%= render "pages/partials/matches" %>
   </body>
 </html>
