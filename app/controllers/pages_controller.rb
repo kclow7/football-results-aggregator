@@ -34,12 +34,15 @@ class PagesController < ApplicationController
     when "Serie A"
       url_helpers.serie_a_with_matchday_path(matchday)
     else
-      render :not_found
+      url_helpers.something_is_wrong
     end
   end
 
   def not_found
     raise ActionController::RoutingError.new('Not Found')
+  end
+
+  def something_is_wrong
   end
 
   private
@@ -58,7 +61,7 @@ class PagesController < ApplicationController
     when "ligue_1"
       @league = League.find_by(name: "Ligue 1")
     else
-      render :not_found
+      Rails.application.routes.url_helpers.something_is_wrong
     end
 
     @all_matchdays = @league.matches.map {|match| match.matchday}.uniq

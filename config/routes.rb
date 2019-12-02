@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   get "serie_a", to: "pages#serie_a", as: :serie_a
   get "serie_a/:matchday", to: "pages#serie_a", as: :serie_a_with_matchday
 
+  get "something_is_wrong", to: "pages#something_is_wrong", as: :something_is_wrong
+
 end
