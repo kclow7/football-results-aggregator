@@ -77,7 +77,12 @@ module WebScraper
 
     def save_match_info
       @match_infos.each do |match_info|
-        ::Match.create(match_info)
+        match = ::Match.new(match_info)
+        if match.save
+          puts "Match: #{match_info[:team_1].name} vs #{match_info[:team_2].name}, Status: Successfully saved into database."
+        else
+          puts "Match: #{match_info[:team_1].name} vs #{match_info[:team_2].name}, Status: Failed to save. #{match.errors.full_messages}."
+        end
       end
     end
 

@@ -21,8 +21,8 @@ class Match < ApplicationRecord
   validates :score_2, presence: true
   validates :match_date, presence: true
   validates :matchday, presence: true
-  
-  validates :team_1, uniqueness: { scope: [:team_2, :score_1, :score_2, :matchday, :match_date, :league] }
+
+  validates :team_1, uniqueness: { scope: [:team_2, :score_1, :score_2, :matchday, :match_date, :league], message: " // Match already exists." }
 
   has_one_attached :video_thumbnail
 end
