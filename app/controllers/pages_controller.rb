@@ -69,7 +69,7 @@ class PagesController < ApplicationController
     if params[:matchday].nil?
       @matchday = @all_matchdays.max
     else
-      @matchday = params[:matchday]
+      @matchday = params[:matchday].to_i
     end
 
     @matches = @league.matches.where(matchday: @matchday)

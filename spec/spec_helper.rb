@@ -93,4 +93,23 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.start
+    DatabaseCleaner.clean
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.clean
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  config.after(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
 end

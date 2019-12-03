@@ -7,6 +7,7 @@ FactoryBot.define do
     score_1 { 1 }
     score_2 { 2 }
     match_date { DateTime.current }
+    matchday { 1 }
   end
 
   factory :team do
