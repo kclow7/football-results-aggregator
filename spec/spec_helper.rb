@@ -94,22 +94,25 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 
+  # This says that before the entire test suite runs, clear the test database out completely.
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
-    DatabaseCleaner.start
-    DatabaseCleaner.clean
   end
 
+  # This part sets the default database cleaning strategy to be transactions.
+  # Transactions are very fast, and for all the tests where they do work—
+  # that is, any test where the entire test runs in the RSpec process—they are preferable.
   config.before(:each) do
-    DatabaseCleaner.clean
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  # These 2 parts below hook up database_cleaner around the beginning and end of each individual test,
+  # telling it to execute whatever cleanup strategy we selected beforehand.
+  config.before(:each) do
+    DatabaseCleaner.start
   end
 
   config.after(:each) do
     DatabaseCleaner.clean
-  end
-
-  config.after(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
   end
 end

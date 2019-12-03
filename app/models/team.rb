@@ -9,5 +9,5 @@ class Team < ApplicationRecord
   belongs_to :league
   has_one_attached :crest
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 end
