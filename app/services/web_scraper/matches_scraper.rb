@@ -6,16 +6,20 @@ require 'open-uri'
 module WebScraper
   class MatchesScraper < ApplicationService
     def initialize(country:, matchday:)
-      @matchday = matchday.to_s
+      @matchday = matchday
       countries = { "england" => "inglaterra", "spain" => "primera", "germany" => "alemania", "italy" => "italia", "france" => "francia" }
       @league_country = countries[country]
       @match_infos = []
     end
 
     def call
+      return "Matchday must be an integer." if !(@matchday.is_a? Integer)
+      return "Matchday must be between 1 and 38, inclusive." if !(@matchday >= 1 && @matchday <= 38)
+      return "Country not available. Unable to perform match scraping." if @league_country.nil?
       url = set_url
       doc = parse_page(url)
       matches = get_matches(doc)
+      return "Unable to get matches." if matches.nil?
       build_match_infos(matches)
       save_match_info
     end
@@ -23,16 +27,27 @@ module WebScraper
     private
 
     def set_url
-      url = "https://en.as.com/resultados/futbol/" + @league_country + "/2019_2020/jornada/regular_a_" + @matchday
+      url = "https://en.as.com/resultados/futbol/" + @league_country + "/2019_2020/jornada/regular_a_" + @matchday.to_s
     end
 
     def parse_page(url)
-      unparsed_page = HTTParty.get(url)
+      begin
+        unparsed_page = HTTParty.get(url)
+      rescue Errno::ECONNREFUSED => e
+        puts "Rescued: #{e.message}"
+        puts "URL unavailable, unable to parse the page."
+        return
+      end
       Nokogiri::HTML(unparsed_page)
     end
 
     def get_matches(doc)
+      begin
       doc.css('li.list-resultado')
+      rescue NoMethodError => e
+        puts "Rescued: #{e.message}"
+        return
+      end
     end
 
     def build_match_infos(matches)
@@ -56,7 +71,7 @@ module WebScraper
         score_2: score_2,
         match_date: get_match_date(match),
         league: @league,
-        matchday: @matchday.to_i
+        matchday: @matchday
       }
     end
 
