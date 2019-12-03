@@ -10,13 +10,17 @@ module WebScraper
     OpenURI::Buffer.const_set 'StringMax', 0
     attr_reader :team_infos
 
-    def initialize(country)
+    def initialize(country:)
       @team_infos = []
       countries = { "england" => "inglaterra", "spain" => "primera", "germany" => "alemania", "italy" => "italia", "france" => "francia" }
       @league_country = countries[country]
     end
 
     def call
+      if @league_country.nil?
+        puts "Country not available. Unable to perform team scraping."
+        return
+      end
       url = "https://en.as.com/resultados/futbol/" + @league_country + "/equipos/"
       doc = parse_page(url)
       teams = get_teams(doc)
@@ -27,7 +31,13 @@ module WebScraper
     private
 
     def parse_page(url)
-      unparsed_page = HTTParty.get(url)
+      begin
+        unparsed_page = HTTParty.get(url)
+      rescue Errno::ECONNREFUSED => e
+        puts "Rescued: #{e.message}"
+        puts "Wrong URL, unable to parse the page."
+        return
+      end
       Nokogiri::HTML(unparsed_page)
     end
 
@@ -63,8 +73,6 @@ module WebScraper
         @team_infos << build_team_info(team)
       end
     end
-
-    private
 
     def check_for_alternate_team_name(team)
       league_name = team.league.name
