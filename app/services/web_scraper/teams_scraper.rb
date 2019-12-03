@@ -48,14 +48,79 @@ module WebScraper
       @team_infos.each do |team_info|
         image_file = open(team_info[:url])
         team = ::Team.new(name: team_info[:name], league_id: league_id)
+        team.name = check_for_alternate_team_name(team)
         team.crest.attach(io: image_file, filename: "#{team_info[:name]}.png")
-        team.save
+        if team.save
+          puts "Team: #{team.name}, Status: Successfully saved into database."
+        else
+          puts "Team: #{team.name}, Status: Failed to save. #{team.errors.full_messages}."
+        end
       end
     end
 
     def build_team_infos(teams)
       teams.each do |team|
         @team_infos << build_team_info(team)
+      end
+    end
+
+    private
+
+    def check_for_alternate_team_name(team)
+      league_name = team.league.name
+      case league_name
+      when "Bundesliga"
+        return check_for_alternate_bundesliga_team_name(team)
+      when "Ligue 1"
+        return check_for_alternate_ligue_1_team_name(team)
+      when "Serie A"
+        return check_for_alternate_serie_a_team_name(team)
+      else
+        return team.name
+      end
+    end
+
+    def check_for_alternate_bundesliga_team_name(team)
+      team_name = team.name
+      case team_name
+      when "Augsburgo"
+        return "Augsburg"
+      when "Colonia"
+        return "Cologne"
+      when "Friburgo"
+        return "Freiburg"
+      when "Wolfsburgo"
+        return "Wolfsburg"
+      else
+        return team_name
+      end
+    end
+
+    def check_for_alternate_ligue_1_team_name(team)
+      team_name = team.name
+      case team_name
+      when "Estrasburgo"
+        return "Strasbourg"
+      when "Niza"
+        return "Nice"
+      when "Marsella"
+        return "Marseille"
+      when "Mónaco"
+        return "Monaco"
+      else
+        return team_name
+      end
+    end
+
+    def check_for_alternate_serie_a_team_name(team)
+      team_name = team.name
+      case team_name
+      when "Nápoles"
+        return "Napoli"
+      when "Bolonia"
+        return "Bologna"
+      else
+        return team_name
       end
     end
   end
