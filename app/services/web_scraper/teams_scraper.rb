@@ -17,13 +17,11 @@ module WebScraper
     end
 
     def call
-      if @league_country.nil?
-        puts "Country not available. Unable to perform team scraping."
-        return
-      end
+      return "Country not available. Unable to perform team scraping." if @league_country.nil?
       url = "https://en.as.com/resultados/futbol/" + @league_country + "/equipos/"
       doc = parse_page(url)
       teams = get_teams(doc)
+      return "Unable to get teams." if teams.nil?
       build_team_infos(teams)
       save_team_info
     end
@@ -42,7 +40,12 @@ module WebScraper
     end
 
     def get_teams(doc)
-      teams = doc.css('span.escudo')
+      begin
+        teams = doc.css('span.escudo')
+      rescue NoMethodError => e
+        puts "Rescued: #{e.message}"
+        return
+      end
     end
 
     def build_team_info(team)
