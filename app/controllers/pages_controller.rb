@@ -51,7 +51,7 @@ class PagesController < ApplicationController
     action_called = params[:action]
     case action_called
     when "premier_league"
-      @league = League.includes(:matches).find_by(name: "Premier League")
+      @league = League.includes(matches: { video_thumbnail_attachment: :blob }).find_by(name: "Premier League")
     when "la_liga"
       @league = League.find_by(name: "La Liga")
     when "serie_a"
@@ -72,7 +72,7 @@ class PagesController < ApplicationController
       @matchday = params[:matchday].to_i
     end
 
-    @matches = @league.matches.includes(:team_1, :team_2).where(matchday: @matchday)
+    @matches = @league.matches.includes(team_1: { crest_attachment: :blob }, team_2: { crest_attachment: :blob }).where(matchday: @matchday)
   end
 
 end
