@@ -51,7 +51,7 @@ class PagesController < ApplicationController
     action_called = params[:action]
     case action_called
     when "premier_league"
-      @league = League.find_by(name: "Premier League")
+      @league = League.includes(:matches).find_by(name: "Premier League")
     when "la_liga"
       @league = League.find_by(name: "La Liga")
     when "serie_a"
@@ -72,7 +72,7 @@ class PagesController < ApplicationController
       @matchday = params[:matchday].to_i
     end
 
-    @matches = @league.matches.where(matchday: @matchday)
+    @matches = @league.matches.includes(:team_1, :team_2).where(matchday: @matchday)
   end
 
 end
