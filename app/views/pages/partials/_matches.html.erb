@@ -1,7 +1,7 @@
 <body>
   <section class="section">
     <div class="container">
-      <% sorted_matches = @matches.sort_by { |match| match.match_date } %>
+      <% sorted_matches = @matches.with_attached_video_thumbnail.sort_by { |match| match.match_date } %>
       <% matches_pairs = sorted_matches.each_slice(2).to_a %>
 
         <% matches_pairs.each do |match_pair| %>
@@ -130,12 +130,12 @@
                             <div class="tile is-child">
                               <!-- Bottom tile -->
                               <figure class="image">
-                                <% if match_1.video_thumbnail.attached? %>
+                                <% if match_1.youtube_link.nil? %>
+                                  <%= image_tag("youtube_video_unavailable_2", style:'width:100%') %>
+                                <% else %>
                                   <a href=<%= match_1.youtube_link %> target="_blank">
                                     <%= image_tag(match_1.video_thumbnail, style:'width:100%') %>
                                   </a>
-                                <% else %>
-                                  <%= image_tag("youtube_video_unavailable_2", style:'width:100%') %>
                                 <% end %>
                               </figure>
                             </div>
@@ -275,12 +275,12 @@
                               <div class="tile is-child">
                                 <!-- Bottom tile -->
                                 <figure class="image">
-                                  <% if match_2.video_thumbnail.attached? %>
+                                  <% if match_2.youtube_link.nil? %>
+                                    <%= image_tag("youtube_video_unavailable_2", style:'width:100%') %>
+                                  <% else %>
                                     <a href=<%= match_2.youtube_link %> target="_blank">
                                       <%= image_tag(match_2.video_thumbnail, style:'width:100%') %>
                                     </a>
-                                  <% else %>
-                                    <%= image_tag("youtube_video_unavailable_2", style:'width:100%') %>
                                   <% end %>
                                 </figure>
                               </div>

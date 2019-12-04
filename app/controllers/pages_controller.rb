@@ -51,7 +51,7 @@ class PagesController < ApplicationController
     action_called = params[:action]
     case action_called
     when "premier_league"
-      @league = League.includes(matches: { video_thumbnail_attachment: :blob }).find_by(name: "Premier League")
+      @league = League.includes(:matches).find_by(name: "Premier League")
     when "la_liga"
       @league = League.find_by(name: "La Liga")
     when "serie_a"
