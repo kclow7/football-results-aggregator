@@ -31,3 +31,6 @@
 
 # Ignore the Youtube API Key
 /config/application.yml
+
+# Ignore the keys to access Google Cloud Platform where I store my active storage stuff.
+/config/secrets/*
