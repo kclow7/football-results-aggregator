@@ -61,7 +61,7 @@ module WebScraper
       team_1 = match.css('span.nombre-equipo')[0].text
       team_2 = match.css('span.nombre-equipo')[1].text
       results = match.css('a.resultado').text.strip
-      if results == "-" || results == ""
+      if results == "-" || results == "" || results == "Aplaz."
         score_1 = nil
         score_2 = nil
       else
