@@ -61,9 +61,8 @@ module WebScraper
       team_1 = match.css('span.nombre-equipo')[0].text
       team_2 = match.css('span.nombre-equipo')[1].text
       results = match.css('a.resultado').text.strip
-      if results == "-" || results == "" || results == "Aplaz."
-        score_1 = nil
-        score_2 = nil
+      if results == "-" || results == "" || results == "Aplaz." #Aplaz. means that the match is postponed.
+        return
       else
         score_1 = results[0..1].strip.to_i
         score_2 = results[4..results.length].strip.to_i
@@ -81,6 +80,7 @@ module WebScraper
 
     def save_match_info
       @match_infos.each do |match_info|
+        next if match_info.nil?
         match = ::Match.new(match_info)
         if match.save
           puts "Match: #{match_info[:team_1].name} vs #{match_info[:team_2].name}, Status: Successfully saved into database."

@@ -15,7 +15,7 @@ class YoutubeSearcher < ApplicationService
     set_service
     matches = get_matches
     matches.each do |match|
-      next if match.video_thumbnail.attached? || match.score_1.nil?
+      next if match.video_thumbnail.attached? 
       match_video_details = get_match_video_details(match)
       update_match(match, match_video_details)
     end
