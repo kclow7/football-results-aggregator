@@ -53,13 +53,13 @@ class PagesController < ApplicationController
     when "premier_league"
       @league = League.includes(:matches).find_by(name: "Premier League")
     when "la_liga"
-      @league = League.find_by(name: "La Liga")
+      @league = League.includes(:matches).find_by(name: "La Liga")
     when "serie_a"
-      @league = League.find_by(name: "Serie A")
+      @league = League.includes(:matches).find_by(name: "Serie A")
     when "bundesliga"
-      @league = League.find_by(name: "Bundesliga")
+      @league = League.includes(:matches).find_by(name: "Bundesliga")
     when "ligue_1"
-      @league = League.find_by(name: "Ligue 1")
+      @league = League.includes(:matches).find_by(name: "Ligue 1")
     else
       Rails.application.routes.url_helpers.something_is_wrong
     end

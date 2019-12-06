@@ -9,16 +9,27 @@ class YoutubeSearcher < ApplicationService
   def initialize(matchday:, league_name:)
     @matchday = matchday
     @league_name = league_name
+    @highlights_counter = 0
   end
 
   def call
     set_service
     matches = get_matches
     matches.each do |match|
-      next if match.video_thumbnail.attached? 
+      puts "Match: #{match.team_1.name} #{match.score_1} - #{match.score_2} #{match.team_2.name}."
+      if match.video_thumbnail.attached?
+        puts "Match already has highlights attached. Skipped."
+        next
+      end
+      if match.score_1.nil?
+        puts "Match has not been played yet. Skipped."
+        next
+      end
+      puts "Searching for match highlights..."
       match_video_details = get_match_video_details(match)
       update_match(match, match_video_details)
     end
+    puts "Number of match highlights saved: #{@highlights_counter}"
   end
 
   private
@@ -30,7 +41,7 @@ class YoutubeSearcher < ApplicationService
 
   def get_matches
     league_id = League.find_by(name: @league_name)
-    matches = Match.where(matchday: @matchday, league_id: league_id)
+    matches = Match.includes(:team_1, :team_2).where(matchday: @matchday, league_id: league_id)
   end
 
   def get_match_video_details(match)
@@ -60,6 +71,11 @@ class YoutubeSearcher < ApplicationService
     match.youtube_link = match_video_details[:youtube_link]
     thumbnail_temp_file = open(match_video_details[:thumbnail_url])
     match.video_thumbnail.attach(io: thumbnail_temp_file, filename: "match_#{match.id}.png")
-    match.save
+    if match.save
+      puts "Match highlights saved."
+      @highlights_counter += 1
+    else
+      puts "Unable to save match."
+    end
   end
 end

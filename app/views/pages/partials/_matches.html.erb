@@ -89,7 +89,15 @@
                               <div class="level">
                                 <div class="level-left">
                                   <div class="level-item">
-                                    <p class="is-size-5 is-family-sans-serif"><strong><%= match_1.score_1 %></strong></p>
+                                    <p class="is-size-5 is-family-sans-serif">
+                                      <strong>
+                                        <% if match_1.score_1.nil? %>
+                                          -
+                                        <% else %>
+                                          <%= match_1.score_1 %>
+                                        <% end %>
+                                      </strong>
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -103,7 +111,15 @@
                               <div class="level">
                                 <div class="level-left">
                                   <div class="level-item">
-                                    <p class="is-size-5 is-family-sans-serif"><strong><%= match_1.score_2 %></strong></p>
+                                    <p class="is-size-5 is-family-sans-serif">
+                                      <strong>
+                                        <% if match_1.score_2.nil? %>
+                                          -
+                                        <% else %>
+                                          <%= match_1.score_2 %>
+                                        <% end %>
+                                      </strong>
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -234,7 +250,15 @@
                                 <div class="level">
                                   <div class="level-left">
                                     <div class="level-item">
-                                      <p class="is-size-5 is-family-sans-serif"><strong><%= match_2.score_1 %></strong></p>
+                                      <p class="is-size-5 is-family-sans-serif">
+                                        <strong>
+                                          <% if match_2.score_1.nil? %>
+                                            -
+                                          <% else %>
+                                            <%= match_2.score_1 %>
+                                          <% end %>
+                                        </strong>
+                                      </p>
                                     </div>
                                   </div>
                                 </div>
@@ -248,7 +272,15 @@
                                 <div class="level">
                                   <div class="level-left">
                                     <div class="level-item">
-                                      <p class="is-size-5 is-family-sans-serif"><strong><%= match_2.score_2 %></strong></p>
+                                      <p class="is-size-5 is-family-sans-serif">
+                                        <strong>
+                                          <% if match_2.score_2.nil? %>
+                                            -
+                                          <% else %>
+                                            <%= match_2.score_2 %>
+                                          <% end %>
+                                        </strong>
+                                      </p>
                                     </div>
                                   </div>
                                 </div>
