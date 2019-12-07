@@ -53,7 +53,7 @@
           </a>
 
           <div class="navbar-dropdown">
-            <% @all_matchdays.each do |matchday| %>
+            <% @all_matchdays.sort.each do |matchday| %>
               <a class="navbar-item" href=<%= switch_matchday(@league.name, matchday) %>>
                 <%= matchday %>
               </a>
