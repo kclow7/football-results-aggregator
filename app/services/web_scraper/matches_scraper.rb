@@ -27,7 +27,7 @@ module WebScraper
     private
 
     def set_url
-      url = "https://en.as.com/resultados/futbol/" + @league_country + "/2019_2020/jornada/regular_a_" + @matchday.to_s
+      url = "https://en.as.com/resultados/futbol/" + @league_country + "/2020_2021/jornada/regular_a_" + @matchday.to_s
     end
 
     def parse_page(url)
