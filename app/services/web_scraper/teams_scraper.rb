@@ -70,9 +70,11 @@ module WebScraper
         team = ::Team.new(name: team_info[:name], league_id: league_id)
         team.crest.attach(io: image_file, filename: "#{team_info[:name]}.png")
         if team.save
-          puts "Team: #{team.name} (url: #{team.url}), Status: Successfully saved into database."
+          puts "Team: #{team.name}; Status: Successfully saved into database."
+          puts "   "
         else
-          puts "Team: #{team.name}, Status: Failed to save. #{team.errors.full_messages}."
+          puts "Team: #{team.name}; Status: Failed to save. #{team.errors.full_messages}."
+          puts "   "
         end
       end
     end

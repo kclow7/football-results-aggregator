@@ -54,7 +54,7 @@ class YoutubeSearcher < ApplicationService
     query = "#{match.team_1.name} #{match.score_1} - #{match.score_2} #{match.team_2.name} highlights"
     fields="items(id(videoId),snippet(title,thumbnails(medium(url))))"
     # we only retrieve the video's title, thumbnail URL, and its ID (which we can make into a link)
-    result = @service.list_searches("snippet", type: "video", max_results: 1, region_code: "MY", q: query, fields: fields)
+    result = @service.list_searches("snippet", type: "video", max_results: 1, region_code: "GB", q: query, fields: fields)
   end
 
   def extract_video_details(json_object)
