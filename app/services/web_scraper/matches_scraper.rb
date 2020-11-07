@@ -61,11 +61,11 @@ module WebScraper
       team_1 = match.css('span.nombre-equipo')[0].text
       team_2 = match.css('span.nombre-equipo')[1].text
       results = match.css('a.resultado').text.strip
-      if results == "-" || results == "" || results == "Aplaz." #Aplaz. means that the match is postponed.
-        return
-      else
+      if results.include? "-"
         score_1 = results[0..1].strip.to_i
         score_2 = results[4..results.length].strip.to_i
+      else
+        return
       end
       match_info = {
         team_1: Team.find_by(name: team_1),
